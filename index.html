@@ -26,7 +26,11 @@
       <input type="text" id="ticket-id" name="ticket-id" />
 
       <label for="outcome">Outcome:</label>
-      <input type="text" id="outcome" name="outcome" />
+      <select id="outcome" name="outcome">
+        <option value="" disabled selected hidden>-- Select an option --</option>
+        <option value="Appeal Successful">Appeal Successful</option>
+        <option value="Appeal Denied">Appeal Denied</option>
+      </select>
 
       <label for="staff-member">Staff Member:</label>
       <input type="text" id="staff-member" name="staff-member" />
