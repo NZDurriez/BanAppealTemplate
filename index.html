@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ban Appeal Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <center><h1>Ban Appeal Generator</h1></center>
+    <form id="qp-form">
+      <label for="ingame-name">Ingame Name:</label>
+      <input type="text" id="ingame-name" name="ingame-name" />
+
+      <label for="discord">Discord:</label>
+      <input type="text" id="discord" name="discord" />
+
+      <label for="appeal-date">Date of Appeal:</label>
+      <input type="date" id="appeal-date" name="appeal-date" />
+
+      <label for="ban-id">Ban ID & Reason:</label>
+      <input type="text" id="ban-id" name="ban-id" />
+
+      <label for="ticket-id">Ticket ID:</label>
+      <input type="text" id="ticket-id" name="ticket-id" />
+
+      <label for="outcome">Outcome:</label>
+      <input type="text" id="outcome" name="outcome" />
+
+      <label for="staff-member">Staff Member:</label>
+      <input type="text" id="staff-member" name="staff-member" />
+
+      <label for="notes">Notes:</label>
+      <textarea id="notes" name="notes"></textarea>
+
+      <label for="logged-tx">Logged in TX if successful:</label>
+      <select id="logged-tx" name="logged-tx">
+        <option value="" disabled selected hidden>-- Select an option --</option>
+        <option value="Yes">Yes</option>
+        <option value="N/A">N/A</option>
+      </select>
+
+      <button type="submit">Generate</button>
+    </form>
+
+    <div id="output-container" class="output-container hidden">
+      <h2>Generated Output</h2>
+      <pre id="output"></pre>
+      <button id="copy-btn">📋 Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
