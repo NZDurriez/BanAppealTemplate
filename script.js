@@ -1,42 +1,46 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("qp-form");
-  const output = document.getElementById("output");
+document.getElementById("qp-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Get field values
+  const name = document.getElementById("ingame-name").value.trim() || "N/A";
+  let discord = document.getElementById("discord").value.trim() || "N/A";
+  const appealDate = document.getElementById("appeal-date").value || "N/A";
+  const banId = document.getElementById("ban-id").value.trim() || "N/A";
+  const ticketId = document.getElementById("ticket-id").value.trim() || "N/A";
+  const outcome = document.getElementById("outcome").value.trim() || "N/A";
+  const staff = document.getElementById("staff-member").value.trim() || "N/A";
+  const notes = document.getElementById("notes").value.trim() || "N/A";
+  const logged = document.getElementById("logged-tx").value || "N/A";
+
+  // Format Discord ID to mention (only numeric)
+  const numericDiscord = discord.replace(/\D/g, '');
+  discord = numericDiscord ? `<@${numericDiscord}>` : "N/A";
+
+  // Build output text
+  const output = `**Ban Appeal Log**\n\n` +
+    `**Ingame Name:** ${name}\n` +
+    `**Discord:** ${discord}\n` +
+    `**Date of Appeal:** ${appealDate}\n` +
+    `**Ban ID & Reason:** ${banId}\n` +
+    `**Ticket ID:** ${ticketId}\n` +
+    `**Outcome:** ${outcome}\n` +
+    `**Staff Member:** ${staff}\n` +
+    `**Notes:** ${notes}\n` +
+    `**Logged in TX if successful:** ${logged}`;
+
+  // Display the output
   const outputContainer = document.getElementById("output-container");
-  const copyBtn = document.getElementById("copy-btn");
+  const outputElement = document.getElementById("output");
+  outputElement.textContent = output;
+  outputContainer.classList.remove("hidden");
+});
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const ingameName = document.getElementById("ingame-name").value.trim();
-    const discord = document.getElementById("discord").value.trim();
-    const appealDate = document.getElementById("appeal-date").value.trim();
-    const banId = document.getElementById("ban-id").value.trim();
-    const ticketId = document.getElementById("ticket-id").value.trim();
-    const outcome = document.getElementById("outcome").value.trim();
-    const staffMember = document.getElementById("staff-member").value.trim();
-    const notes = document.getElementById("notes").value.trim();
-    const loggedTx = document.getElementById("logged-tx").value;
-
-    const result = `
-**Ingame Name:** ${ingameName}
-**Discord:** ${discord}
-**Date of Appeal:** ${appealDate}
-**Ban ID & Reason:** ${banId}
-**Ticket ID:** ${ticketId}
-**Outcome:** ${outcome}
-**Staff Member:** ${staffMember}
-**Notes:** ${notes}
-**Logged in TX if successful:** ${loggedTx}
-    `.trim();
-
-    output.textContent = result;
-    outputContainer.classList.remove("hidden");
-  });
-
-  copyBtn.addEventListener("click", () => {
-    const text = output.textContent;
-    navigator.clipboard.writeText(text)
-      .then(() => alert("Copied to clipboard!"))
-      .catch(err => alert("Failed to copy: " + err));
+// Copy to clipboard
+document.getElementById("copy-btn").addEventListener("click", function () {
+  const text = document.getElementById("output").innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById("copy-btn");
+    btn.textContent = "Copied!";
+    setTimeout(() => btn.textContent = "📋 Copy to Clipboard", 1500);
   });
 });
