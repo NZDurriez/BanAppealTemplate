@@ -14,7 +14,10 @@ body {
   border-radius: 12px;
 }
 
-input, textarea, select, button {
+input,
+textarea,
+select,
+button {
   width: 100%;
   padding: 0.6rem;
   margin: 0.5rem 0 1rem;
@@ -54,4 +57,21 @@ pre {
   padding: 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
+}
+
+/* NEW: Make the date input field more clickable */
+.date-wrapper {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.date-wrapper label,
+.date-wrapper input[type="date"] {
+  display: block;
+  width: 100%;
+  padding: 0.3rem 0;
+}
+
+input[type="date"] {
+  cursor: pointer;
 }
