@@ -16,8 +16,11 @@
       <label for="discord">Discord:</label>
       <input type="text" id="discord" name="discord" />
 
-      <label for="appeal-date">Date of Appeal:</label>
-      <input type="date" id="appeal-date" name="appeal-date" />
+      <!-- Date field wrapped for full-click area -->
+      <div class="date-wrapper">
+        <label for="appeal-date">Date of Appeal:</label>
+        <input type="date" id="appeal-date" name="appeal-date" />
+      </div>
 
       <label for="ban-id">Ban ID & Reason:</label>
       <input type="text" id="ban-id" name="ban-id" />
@@ -51,9 +54,21 @@
     <div id="output-container" class="output-container hidden">
       <h2>Generated Output</h2>
       <pre id="output"></pre>
-      <button id="copy-btn">📋 Copy to Clipboard</button>
+      <button id="copy-btn">Copy to Clipboard</button>
     </div>
   </div>
+
+  <script>
+    // Make clicking the date-wrapper focus the date input
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateWrapper = document.querySelector('.date-wrapper');
+      const dateInput = document.getElementById('appeal-date');
+
+      dateWrapper.addEventListener('click', () => {
+        dateInput.showPicker?.() || dateInput.focus();
+      });
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
