@@ -16,8 +16,8 @@ document.getElementById("qp-form").addEventListener("submit", function (e) {
   const numericDiscord = discord.replace(/\D/g, '');
   discord = numericDiscord ? `<@${numericDiscord}>` : "N/A";
 
-  // Build output text
-  const output = `**Ban Appeal Log**\n\n` +
+  // Build output text (removed "**Ban Appeal Log**")
+  const output = 
     `**Ingame Name:** ${name}\n` +
     `**Discord:** ${discord}\n` +
     `**Date of Appeal:** ${appealDate}\n` +
