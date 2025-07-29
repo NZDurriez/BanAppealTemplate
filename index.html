@@ -69,15 +69,15 @@
         dateInput.showPicker?.() || dateInput.focus();
       });
 
-      // Populate staff member dropdown from staff.json
+      // ✅ FIXED: Populate dropdown from staff.json (uses entry.name)
       fetch('staff.json')
         .then(response => response.json())
         .then(data => {
           const staffDropdown = document.getElementById('staff-member');
-          data.forEach(name => {
+          data.forEach(entry => {
             const option = document.createElement('option');
-            option.value = name;
-            option.textContent = name;
+            option.value = entry.name;
+            option.textContent = entry.name;
             staffDropdown.appendChild(option);
           });
         })
