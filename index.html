@@ -16,7 +16,6 @@
       <label for="discord">Discord:</label>
       <input type="text" id="discord" name="discord" />
 
-      <!-- Date field wrapped for full-click area -->
       <div class="date-wrapper">
         <label for="appeal-date">Date of Appeal:</label>
         <input type="date" id="appeal-date" name="appeal-date" />
@@ -36,7 +35,9 @@
       </select>
 
       <label for="staff-member">Staff Member:</label>
-      <input type="text" id="staff-member" name="staff-member" />
+      <select id="staff-member" name="staff-member">
+        <option value="" disabled selected hidden>-- Select a staff member --</option>
+      </select>
 
       <label for="notes">Notes:</label>
       <textarea id="notes" name="notes"></textarea>
@@ -67,6 +68,20 @@
       dateWrapper.addEventListener('click', () => {
         dateInput.showPicker?.() || dateInput.focus();
       });
+
+      // Populate staff member dropdown from staff.json
+      fetch('staff.json')
+        .then(response => response.json())
+        .then(data => {
+          const staffDropdown = document.getElementById('staff-member');
+          data.forEach(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            staffDropdown.appendChild(option);
+          });
+        })
+        .catch(error => console.error('Failed to load staff.json:', error));
     });
   </script>
 
