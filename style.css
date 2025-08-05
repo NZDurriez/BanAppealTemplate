@@ -1,68 +1,77 @@
 body {
+  font-family: Arial, sans-serif;
   background: #1e1e1e;
   color: white;
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  padding: 2rem;
 }
-body::-webkit-scrollbar {
-  display: none;
-}
+
 .container {
   max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: auto;
   background: #333;
-  border-radius: 10px;
-  box-shadow: 0 0 10px black;
+  padding: 2rem;
+  border-radius: 12px;
 }
-label {
-  display: block;
-  margin-top: 10px;
-}
-input, select, textarea {
+
+input,
+textarea,
+select,
+button {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
+  padding: 0.6rem;
+  margin: 0.5rem 0 1rem;
+  border: none;
+  border-radius: 8px;
   background: #555;
   color: white;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
+  font-size: 1rem;
 }
-textarea {
-  resize: vertical;
-}
+
 button {
-  margin-top: 15px;
-  width: 100%;
-  padding: 12px;
-  background: #007bff;
-  border: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 5px;
+  background-color: #666;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
+
 button:hover {
-  background: #0056b3;
+  background-color: #888;
 }
+
 .output-container {
-  background: #444;
-  padding: 15px;
-  margin-top: 30px;
+  margin-top: 2rem;
+  background: #222;
+  padding: 1rem;
   border-radius: 10px;
-  white-space: pre-wrap;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
-.output-container::-webkit-scrollbar {
-  display: none;
-}
+
 .hidden {
   display: none;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: monospace;
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+/* NEW: Make the date input field more clickable */
+.date-wrapper {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.date-wrapper label,
+.date-wrapper input[type="date"] {
+  display: block;
+  width: 100%;
+  padding: 0.3rem 0;
+}
+
+input[type="date"] {
+  cursor: pointer;
 }
