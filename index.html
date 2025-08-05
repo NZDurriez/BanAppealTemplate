@@ -1,140 +1,90 @@
-body {
-    background: #1e1e1e;
-    color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-body::-webkit-scrollbar {
-    display: none;
-}
-/* Main Container */
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #333;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-}
-/* Title Styling */
-.title {
-    text-align: center;
-    font-size: 1.8em;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-/* Wrapper for Form & Output Side by Side */
-.content-wrapper {
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-}
-/* Form Container */
-.form-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-/* Output Container */
-.output-container {
-    flex: 1;
-    background: #444;
-    padding: 15px;
-    border-radius: 5px;
-    min-height: 300px;
-    font-family: monospace;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    white-space: pre-wrap;
-    overflow: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-.output-container::-webkit-scrollbar {
-    display: none;
-}
-/* Form Group Styling */
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-/* Labels */
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-/* Input, Select, Textarea Styling */
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #aaa;
-    background: #555;
-    color: white;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box;
-}
-/* Textarea Styling */
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-/* Button Styling */
-button {
-    width: 100%;
-    background: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 12px;
-    border-radius: 5px;
-    font-size: 1.1em;
-    font-weight: bold;
-}
-button:hover {
-    background: #0056b3;
-}
-/* Output Box */
-.output {
-    width: 100%;
-    color: #fff;
-    text-align: left;
-    margin-top: 30px;
-}
-/* Copy Button */
-.copy-btn {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    display: none;
-}
-.output-container:hover .copy-btn {
-    display: block;
-}
-.copy-btn:hover {
-    background: #218838;
-}
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-    .content-wrapper {
-        flex-direction: column;
-    }
-    .output-container {
-        min-height: 200px;
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ban Appeal Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <center><h1>Ban Appeal Generator</h1></center>
+    <form id="qp-form">
+      <label for="ingame-name">Ingame Name:</label>
+      <input type="text" id="ingame-name" name="ingame-name" />
+
+      <label for="discord">Discord:</label>
+      <input type="text" id="discord" name="discord" />
+
+      <div class="date-wrapper">
+        <label for="appeal-date">Date of Appeal:</label>
+        <input type="date" id="appeal-date" name="appeal-date" />
+      </div>
+
+      <label for="ban-id">Ban ID & Reason:</label>
+      <input type="text" id="ban-id" name="ban-id" />
+
+      <label for="ticket-id">Ticket ID:</label>
+      <input type="text" id="ticket-id" name="ticket-id" />
+
+      <label for="outcome">Outcome:</label>
+      <select id="outcome" name="outcome">
+        <option value="" disabled selected hidden>-- Select an option --</option>
+        <option value="Appeal Successful">Appeal Successful</option>
+        <option value="Appeal Denied">Appeal Denied</option>
+      </select>
+
+      <label for="staff-member">Staff Member:</label>
+      <select id="staff-member" name="staff-member">
+        <option value="" disabled selected hidden>-- Select a staff member --</option>
+      </select>
+
+      <label for="notes">Notes:</label>
+      <textarea id="notes" name="notes"></textarea>
+
+      <label for="logged-tx">Logged in TX if successful:</label>
+      <select id="logged-tx" name="logged-tx">
+        <option value="" disabled selected hidden>-- Select an option --</option>
+        <option value="Yes">Yes</option>
+        <option value="N/A">N/A</option>
+      </select>
+
+      <button type="submit">Generate</button>
+    </form>
+
+    <div id="output-container" class="output-container hidden">
+      <h2>Generated Output</h2>
+      <pre id="output"></pre>
+      <button id="copy-btn">Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <script>
+    // Make clicking the date-wrapper focus the date input
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateWrapper = document.querySelector('.date-wrapper');
+      const dateInput = document.getElementById('appeal-date');
+
+      dateWrapper.addEventListener('click', () => {
+        dateInput.showPicker?.() || dateInput.focus();
+      });
+
+      // ✅ FIXED: Populate dropdown from staff.json (uses entry.name)
+      fetch('staff.json')
+        .then(response => response.json())
+        .then(data => {
+          const staffDropdown = document.getElementById('staff-member');
+          data.forEach(entry => {
+            const option = document.createElement('option');
+            option.value = entry.name;
+            option.textContent = entry.name;
+            staffDropdown.appendChild(option);
+          });
+        })
+        .catch(error => console.error('Failed to load staff.json:', error));
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
