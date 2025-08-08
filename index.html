@@ -4,7 +4,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ban Appeal Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e1e;
+      color: white;
+      margin: 0;
+      padding: 2rem;
+      overflow-y: scroll; /* Keep scrollability */
+      scrollbar-width: none; /* Firefox */
+    }
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #333;
+      padding: 2rem;
+      border-radius: 12px;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 0.5rem 0 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #555;
+      color: white;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #666;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #888;
+    }
+
+    .output-container {
+      margin-top: 2rem;
+      background: #222;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: monospace;
+      background-color: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    pre::-webkit-scrollbar {
+      display: none;
+    }
+
+    .date-wrapper {
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .date-wrapper label,
+    .date-wrapper input[type="date"] {
+      display: block;
+      width: 100%;
+      padding: 0.3rem 0;
+    }
+
+    input[type="date"] {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -55,7 +142,7 @@
     <div id="output-container" class="output-container hidden">
       <h2>Generated Output</h2>
       <pre id="output"></pre>
-      <button id="copy-btn">Copy to Clipboard</button>
+      <button id="copy-btn">📋 Copy to Clipboard</button>
     </div>
   </div>
 
@@ -69,7 +156,7 @@
         dateInput.showPicker?.() || dateInput.focus();
       });
 
-      // ✅ FIXED: Populate dropdown from staff.json (uses entry.name)
+      // Populate staff dropdown (if staff.json exists)
       fetch('staff.json')
         .then(response => response.json())
         .then(data => {
@@ -81,10 +168,11 @@
             staffDropdown.appendChild(option);
           });
         })
-        .catch(error => console.error('Failed to load staff.json:', error));
+        .catch(() => {}); // Ignore if file doesn't exist
     });
   </script>
 
+  <!-- Keep your external script file -->
   <script src="script.js"></script>
 </body>
 </html>
