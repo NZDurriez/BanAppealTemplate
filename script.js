@@ -4,7 +4,17 @@ document.getElementById("qp-form").addEventListener("submit", function (e) {
   // Get field values
   const name = document.getElementById("ingame-name").value.trim() || "N/A";
   let discord = document.getElementById("discord").value.trim() || "N/A";
-  const appealDate = document.getElementById("appeal-date").value || "N/A";
+
+  // Date formatting: YYYY-MM-DD → DD MON YYYY
+  let appealDateRaw = document.getElementById("appeal-date").value;
+  let appealDate = "N/A";
+  if (appealDateRaw) {
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+                    "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const [year, month, day] = appealDateRaw.split("-");
+    appealDate = `${day.padStart(2, "0")} ${months[parseInt(month) - 1]} ${year}`;
+  }
+
   const banId = document.getElementById("ban-id").value.trim() || "N/A";
   const ticketId = document.getElementById("ticket-id").value.trim() || "N/A";
   const outcome = document.getElementById("outcome").value.trim() || "N/A";
@@ -17,7 +27,7 @@ document.getElementById("qp-form").addEventListener("submit", function (e) {
   discord = numericDiscord ? `<@${numericDiscord}>` : "N/A";
 
   // Build output text (removed "**Ban Appeal Log**")
-  const output = 
+  const output =
     `**Ingame Name:** ${name}\n` +
     `**Discord:** ${discord}\n` +
     `**Date of Appeal:** ${appealDate}\n` +
