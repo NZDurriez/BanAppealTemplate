@@ -17,31 +17,19 @@
   },
   {
     "name": "Ollie.B",
-    "role": "Executive"
-  },
-  {
-    "name": "Hayden",
-    "role": "Executive"
-  },
-  {
-    "name": "Toasty",
     "role": "Manager"
   },
   {
-    "name": "Aurorafalcon",
+    "name": "Hayden",
+    "role": "Manager"
+  },
+  {
+    "name": "Toast",
     "role": "Manager"
   },
   {
     "name": "Matthew",
     "role": "Manager"
-  },
-  {
-    "name": "Spiritus",
-    "role": "Manager"
-  },
-  {
-    "name": "Kuzin",
-    "role": "Administrator"
   },
   {
     "name": "xFizeh",
@@ -61,7 +49,7 @@
   },
   {
     "name": "Drew",
-    "role": "Administrator"
+    "role": "Manager"
   },
   {
     "name": "C. Martin",
